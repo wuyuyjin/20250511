@@ -67,7 +67,8 @@ const Home = () => {
       };
 
       fileReader.readAsArrayBuffer(pdfFile);
-    } catch (err) {
+    } catch (error) {
+      console.error("Error rotating PDF:", error);
       setError("PDF处理失败，请重试");
       setLoading(false);
     }
