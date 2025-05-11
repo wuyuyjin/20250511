@@ -130,6 +130,23 @@ const Home = () => {
     ));
   }, [numPages, scale, pageRotations, handleRotatePage]);
 
+  const handleDragOver = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+  }, []);
+
+  const handleDrop = useCallback((event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    
+    const files = event.dataTransfer.files;
+    const file = files[0];
+    
+    if (file && file.type === "application/pdf") {
+      setPdfFile(file);
+    }
+  }, []);
+
   return (
     <div className="min-h-screen bg-[#fafbfc]">
       {/* 导航栏 */}
@@ -147,7 +164,11 @@ const Home = () => {
 
         <div className="w-full flex justify-center">
           {!pdfFile && (
-            <div className="h-[350px] relative text-center w-[275px] flex items-center justify-center border rounded transition-all bg-white border-dashed border-stone-300">
+            <div 
+              className="h-[350px] relative text-center w-[275px] flex items-center justify-center border rounded transition-all bg-white border-dashed border-stone-300 hover:border-[#ff5c35] hover:bg-gray-50"
+              onDragOver={handleDragOver}
+              onDrop={handleDrop}
+            >
               <input
                 type="file"
                 accept=".pdf"
@@ -285,7 +306,7 @@ const Home = () => {
                       : "bg-[#ff5c35] hover:bg-[#ff4a1a]"
                   } text-white rounded-lg`}
                 >
-                  {loading ? "处理中..." : "下载"}
+                  {loading ? "Loading..." : "Download"}
                 </button>
               </div>
             </div>

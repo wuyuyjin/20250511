@@ -1,36 +1,112 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
 
-First, run the development server:
 
+          
+# PDF页面旋转工具
+
+## 项目介绍
+这是一个基于Next.js开发的PDF页面旋转工具，可以帮助用户轻松地对PDF文档进行页面旋转操作。用户可以单独旋转某一页，也可以一次性旋转所有页面。
+
+## 功能特点
+- 支持PDF文件上传（拖拽或点击上传）
+- 单页旋转功能
+- 批量旋转功能
+- 实时预览
+- 缩放控制
+- 导出修改后的PDF
+
+## 环境要求
+- Node.js (推荐 18.x 或更高版本)
+- npm, yarn, pnpm 或 bun 包管理器
+
+## 快速开始
+
+### 1. 安装依赖
+```bash
+npm install
+# 或
+yarn install
+# 或
+pnpm install
+# 或
+bun install
+```
+
+### 2. 启动开发服务器
 ```bash
 npm run dev
-# or
+# 或
 yarn dev
-# or
+# 或
 pnpm dev
-# or
+# 或
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. 访问应用
+打开浏览器访问 [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 使用说明
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **上传PDF**
+   - 点击上传区域选择PDF文件
+   - 或直接将PDF文件拖拽到上传区域
 
-## Learn More
+2. **旋转操作**
+   - 点击每页右上角的旋转按钮进行单页旋转
+   - 使用"Rotate all"按钮可以一次性旋转所有页面
+   - 使用"Remove PDF"按钮可以移除当前PDF
 
-To learn more about Next.js, take a look at the following resources:
+3. **预览控制**
+   - 使用缩放按钮调整预览大小
+   - 实时预览旋转效果
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. **导出文件**
+   - 完成旋转操作后，点击下载按钮
+   - 系统会自动生成并下载修改后的PDF文件
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 技术栈
+- Next.js 14
+- TypeScript
+- Tailwind CSS
+- pdf-lib (PDF处理)
+- react-pdf (PDF预览)
 
-## Deploy on Vercel
+## 注意事项
+- 建议使用现代浏览器以获得最佳体验
+- 大文件处理可能需要较长时间，请耐心等待
+- 处理过程中请勿刷新页面
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 部署
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+项目可以轻松部署到Vercel平台：
+
+1. **构建项目**
+```bash
+npm run build
+# 或
+yarn build
+# 或
+pnpm build
+# 或
+bun build
+```
+
+2. **启动生产服务**
+```bash
+npm run start
+# 或
+yarn start
+# 或
+pnpm start
+# 或
+bun start
+```
+
+## 贡献
+欢迎提交问题和改进建议！
+
+## 许可证
+MIT License
+
+        
