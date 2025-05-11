@@ -66,7 +66,8 @@ bun dev
    - 系统会自动生成并下载修改后的PDF文件
 
 ## 技术栈
-- Next.js 14
+- Next.js 15
+- react 19
 - TypeScript
 - Tailwind CSS
 - pdf-lib (PDF处理)
