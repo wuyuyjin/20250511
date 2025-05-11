@@ -32,29 +32,45 @@ const Home = () => {
 
   const handleRotate = useCallback(async () => {
     if (!pdfFile) return;
+    
+    setLoading(true); // 添加加载状态
+    
+    try {
+      const fileReader = new FileReader();
+      fileReader.onload = async () => {
+        const pdfDoc = await PDFDocument.load(fileReader.result as ArrayBuffer);
+        const pages = pdfDoc.getPages();
 
-    const fileReader = new FileReader();
-    fileReader.onload = async () => {
-      const pdfDoc = await PDFDocument.load(fileReader.result as ArrayBuffer);
-      const pages = pdfDoc.getPages();
+        // 在 handleRotate 函数中
+        pages.forEach((page, index) => {
+          const rotation: number = pageRotations[index + 1] || 0;
+          page.setRotation(degrees(rotation));
+        });
 
-      // 在 handleRotate 函数中
-      pages.forEach((page, index) => {
-        const rotation: number = pageRotations[index + 1] || 0;
-        page.setRotation(degrees(rotation));
-      });
+        const rotatedPdfBytes = await pdfDoc.save();
+        const blob = new Blob([rotatedPdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
 
-      const rotatedPdfBytes = await pdfDoc.save();
-      const blob = new Blob([rotatedPdfBytes], { type: "application/pdf" });
-      const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = `rotated-${pdfFile.name}`;
+        link.click();
+        
+        // 清理URL对象
+        URL.revokeObjectURL(url);
+        setLoading(false);
+      };
 
-      const link = document.createElement("a");
-      link.href = url;
-      link.download = `rotated-${pdfFile.name}`;
-      link.click();
-    };
+      fileReader.onerror = () => {
+        setError("文件读取失败，请重试");
+        setLoading(false);
+      };
 
-    fileReader.readAsArrayBuffer(pdfFile);
+      fileReader.readAsArrayBuffer(pdfFile);
+    } catch (err) {
+      setError("PDF处理失败，请重试");
+      setLoading(false);
+    }
   }, [pdfFile, pageRotations]);
 
   const handleRotateAll = useCallback(() => {
@@ -261,9 +277,14 @@ const Home = () => {
               <div className="text-center">
                 <button
                   onClick={handleRotate}
-                  className="px-6 py-3 mt-8 bg-[#ff5c35] text-white rounded-lg hover:bg-[#ff4a1a]"
+                  disabled={loading}
+                  className={`px-6 py-3 mt-8 ${
+                    loading 
+                      ? "bg-gray-400 cursor-not-allowed" 
+                      : "bg-[#ff5c35] hover:bg-[#ff4a1a]"
+                  } text-white rounded-lg`}
                 >
-                  Download
+                  {loading ? "处理中..." : "下载"}
                 </button>
               </div>
             </div>
